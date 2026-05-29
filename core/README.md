@@ -42,3 +42,9 @@ This framework focuses purely on **deterministic AI production infrastructure**.
 
 ```python
 # Failure → Detection → Healing → Success
+## Example
+
+Run the deterministic pipeline:
+
+```bash
+python examples/golden_pipeline.py
