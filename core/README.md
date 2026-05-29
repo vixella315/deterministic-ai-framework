@@ -37,14 +37,10 @@ This repository does NOT include:
 This framework focuses purely on **deterministic AI production infrastructure**.
 
 ---
-
-## 🔥 Example: Golden Pipeline
-
-```python
-# Failure → Detection → Healing → Success
 ## Example
 
 Run the deterministic pipeline:
 
 ```bash
 python examples/golden_pipeline.py
+```
