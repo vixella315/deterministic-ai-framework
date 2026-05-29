@@ -16,20 +16,20 @@ print(prompt)
 ai_output = {
     "title": "AI Product"
 }
-
-print("\nRAW OUTPUT:")
+print("\nSTEP 1 — RAW OUTPUT (FAILURE):")
 print(ai_output)
 
 is_valid, error = validate(ai_output, schema)
-print("\nVALIDATION:")
-print(is_valid, error)
+print("\nSTEP 2 — VALIDATION RESULT:")
+print("Valid:", is_valid, "| Error:", error)
 
 if not is_valid:
+    print("\nSTEP 3 — HEALING TRIGGERED")
     ai_output = heal(ai_output, schema)
 
-print("\nHEALED OUTPUT:")
+print("\nSTEP 4 — HEALED OUTPUT:")
 print(ai_output)
 
 is_valid, error = validate(ai_output, schema)
-print("\nFINAL VALIDATION:")
-print(is_valid, error)
+print("\nSTEP 5 — FINAL VALIDATION:")
+print("Valid:", is_valid, "| Error:", error)
