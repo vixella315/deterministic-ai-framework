@@ -8,7 +8,7 @@ class FailureCode(str, Enum):
 @dataclass(frozen=True)
 class FailureRule:
     code: FailureCode; action: FailureAction; default_repairable: bool; reason: str
-_REPAIRABLE={FailureCode.REQUIRED_FIELD_MISSING,FailureCode.TYPE_ERROR,FailureCode.NULL_NOT_ALLOWED,FailureCode.EMPTY_VALUE,FailureCode.INVALID_FORMAT,FailureCode.UNEXPECTED_PROPERTY,FailureCode.NESTED_STRUCTURE_ERROR}
+_REPAIRABLE={FailureCode.UNEXPECTED_PROPERTY}
 FAILURE_RULES={code: FailureRule(code,FailureAction.REPAIR if code in _REPAIRABLE else FailureAction.STOP,code in _REPAIRABLE,"Potentially repairable only under explicit policy; never invent facts." if code in _REPAIRABLE else "Failure must stop processing.") for code in FailureCode}
 def get_failure_rule(code: str|FailureCode)->FailureRule:
     try: normalized=code if isinstance(code,FailureCode) else FailureCode(code)
