@@ -58,12 +58,7 @@ class Validator:
             "const": "VALUE_OUT_OF_RANGE",
         }.get(error.validator, "SCHEMA_ERROR")
 
-        repairable = code in {
-            "REQUIRED_FIELD_MISSING",
-            "TYPE_ERROR",
-            "INVALID_FORMAT",
-            "UNEXPECTED_PROPERTY",
-        }
+        repairable = code == "UNEXPECTED_PROPERTY"
 
         return ErrorDetail(
             code=code,
