@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/deterministic-ai-framework/schemas/asset/1.0.0",
+  "title": "Deterministic AI Framework Asset",
+  "description": "Canonical external contract for an asset payload.",
+  "type": "object",
+  "required": [
+    "content",
+    "schema_version",
+    "asset_id",
+    "created_at"
+  ],
+  "properties": {
+    "content": {
+      "type": "object",
+      "description": "The structured data carried by the asset."
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "asset_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}
