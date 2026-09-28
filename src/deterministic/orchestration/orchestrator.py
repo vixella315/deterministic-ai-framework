@@ -58,7 +58,7 @@ class Orchestrator:
             )
 
         validation = self.validator.validate(data, schema)
-        if validation.valid:
+        if validation.is_valid:
             return OrchestrationResult(
                 StopState.ACCEPTED, data, response, validation
             )
@@ -93,7 +93,7 @@ class Orchestrator:
             )
 
         revalidation = self.validator.validate(repair.data, schema)
-        if not revalidation.valid:
+        if not revalidation.is_valid:
             return OrchestrationResult(
                 StopState.STOPPED,
                 None,
