@@ -10,7 +10,9 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "TBD"}
 authors = [{name = "vixella315"}]
-dependencies = []
+dependencies = [
+  "jsonschema>=4.23,<5",
+]
 
 [project.optional-dependencies]
 dev = [
