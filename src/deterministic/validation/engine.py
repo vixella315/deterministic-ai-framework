@@ -64,14 +64,11 @@ class Validator:
         if code == "UNEXPECTED_PROPERTY":
             unexpected = getattr(error, "message", "")
             marker = "' was unexpected"
-            if marker in unexpected:
-                prefix = unexpected.rsplit("(", 1)[-1]
-                if prefix.endswith(")"):
-                    prefix = prefix[:-1]
-                if prefix.endswith(marker):
-                    property_name = prefix[: -len(marker)]
-                    if property_name:
-                        path = f"{path}.{property_name}"
+            if unexpected.startswith("'") and marker in unexpected:
+                marker_index = unexpected.rfind(marker)
+                property_name = unexpected[1:marker_index]
+                if property_name:
+                    path = f"{path}.{property_name}"
 
         repairable = code == "UNEXPECTED_PROPERTY"
 
