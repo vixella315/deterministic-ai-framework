@@ -63,11 +63,11 @@ class Validator:
         # remove exactly that property without guessing.
         if code == "UNEXPECTED_PROPERTY":
             unexpected = getattr(error, "message", "")
-            marker = "' was unexpected"
-            if unexpected.startswith("'") and marker in unexpected:
-                marker_index = unexpected.rfind(marker)
-                property_name = unexpected[1:marker_index]
-                if property_name:
+            prefix = "Additional properties are not allowed ('"
+            suffix = "' was unexpected)"
+            if unexpected.startswith(prefix) and unexpected.endswith(suffix):
+                property_name = unexpected[len(prefix):-len(suffix)]
+                if property_name and "'" not in property_name:
                     path = f"{path}.{property_name}"
 
         repairable = code == "UNEXPECTED_PROPERTY"
