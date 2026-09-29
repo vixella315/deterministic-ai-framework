@@ -20,8 +20,12 @@ def test_system_failure_has_distinct_terminal_state():
     assert decision.state is StopState.SYSTEM_FAILURE
 
 
-def test_repairable_failure_cannot_be_accepted_without_revalidation():
+def test_nonrepairable_failure_stops():
     decision = StopController().decide([{"code": "REQUIRED_FIELD_MISSING"}])
+    assert decision.state is StopState.STOPPED
+
+def test_repairable_failure_is_not_accepted_before_repair():
+    decision = StopController().decide([{"code": "UNEXPECTED_PROPERTY"}])
     assert decision.state is StopState.REJECTED
 
 

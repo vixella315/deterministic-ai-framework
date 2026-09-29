@@ -58,12 +58,19 @@ class Validator:
             "const": "VALUE_OUT_OF_RANGE",
         }.get(error.validator, "SCHEMA_ERROR")
 
-        repairable = code in {
-            "REQUIRED_FIELD_MISSING",
-            "TYPE_ERROR",
-            "INVALID_FORMAT",
-            "UNEXPECTED_PROPERTY",
-        }
+        # jsonschema reports additionalProperties at the parent path.
+        # Surface the unexpected property name so a deterministic repair can
+        # remove exactly that property without guessing.
+        if code == "UNEXPECTED_PROPERTY":
+            unexpected = getattr(error, "message", "")
+            prefix = "Additional properties are not allowed ('"
+            suffix = "' was unexpected)"
+            if unexpected.startswith(prefix) and unexpected.endswith(suffix):
+                property_name = unexpected[len(prefix):-len(suffix)]
+                if property_name and "'" not in property_name:
+                    path = f"{path}.{property_name}"
+
+        repairable = code == "UNEXPECTED_PROPERTY"
 
         return ErrorDetail(
             code=code,
